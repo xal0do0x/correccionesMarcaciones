@@ -108,82 +108,84 @@ public class Configuracion extends javax.swing.JInternalFrame {
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        cboTipoBD1 = new javax.swing.JComboBox();
         txtConexion1 = new javax.swing.JTextField();
         txtUsuario1 = new javax.swing.JTextField();
         txtPassword1 = new javax.swing.JPasswordField();
-        jLabel43 = new javax.swing.JLabel();
-        cboTipoBD1 = new javax.swing.JComboBox();
         jButton2 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Configuración de base de datos");
-        getContentPane().setLayout(new java.awt.GridLayout(1, 2, 5, 5));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         pnlBiostar.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de conexión a Biostar"));
-        pnlBiostar.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagLayout pnlBiostarLayout = new java.awt.GridBagLayout();
+        pnlBiostarLayout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
+        pnlBiostarLayout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        pnlBiostar.setLayout(pnlBiostarLayout);
 
         jLabel40.setText("Conexión:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.weightx = 0.1;
         pnlBiostar.add(jLabel40, gridBagConstraints);
 
         jLabel41.setText("Usuario:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.weightx = 0.1;
         pnlBiostar.add(jLabel41, gridBagConstraints);
 
         jLabel42.setText("Contraseña:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 12;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.weightx = 0.1;
         pnlBiostar.add(jLabel42, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 183;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlBiostar.add(txtConexion1, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 183;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlBiostar.add(txtUsuario1, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 183;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlBiostar.add(txtPassword1, gridBagConstraints);
 
         jLabel43.setText("Tipo de BD:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.weightx = 0.1;
         pnlBiostar.add(jLabel43, gridBagConstraints);
 
         cboTipoBD1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SQL Server", "PostgreSQL", "MySQL" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 76;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
         pnlBiostar.add(cboTipoBD1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 0.1;
+        pnlBiostar.add(txtConexion1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 0.1;
+        pnlBiostar.add(txtUsuario1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 0.1;
+        pnlBiostar.add(txtPassword1, gridBagConstraints);
 
         jButton2.setText("Guardar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -192,11 +194,18 @@ public class Configuracion extends javax.swing.JInternalFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.weightx = 0.1;
         pnlBiostar.add(jButton2, gridBagConstraints);
 
-        getContentPane().add(pnlBiostar);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        getContentPane().add(pnlBiostar, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
