@@ -5,6 +5,10 @@
  */
 package vista;
 
+import controlador.UserControlador;
+import javax.swing.JOptionPane;
+import modelo.User;
+
 /**
  *
  * @author Aldo
@@ -14,8 +18,10 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
     /**
      * Creates new form correccionIndividual
      */
+    private UserControlador uc;
     public correccionIndividual() {
         initComponents();
+        inicializar();
     }
 
     /**
@@ -30,24 +36,27 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
 
         pnlDatos = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtIdIncorrecto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtIdCorrecto = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
         pnlMarcaciones = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        txtNumEventIdC = new javax.swing.JTextField();
+        btnShowEventIdC = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jXTable1 = new org.jdesktop.swingx.JXTable();
+        txtNombreIdCorrecto = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jTextField4 = new javax.swing.JTextField();
+        btnShowEventIdI = new javax.swing.JToggleButton();
+        txtNumEventIdI = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jXTable2 = new org.jdesktop.swingx.JXTable();
+        txtNombreIdIncorrecto = new javax.swing.JTextField();
         pnlBtn = new javax.swing.JPanel();
-        jToggleButton3 = new javax.swing.JToggleButton();
+        btnCruce = new javax.swing.JToggleButton();
 
         setClosable(true);
         setTitle("Corrección de Marcaciones - Individual");
@@ -61,7 +70,7 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         pnlDatos.setPreferredSize(new java.awt.Dimension(850, 150));
         java.awt.GridBagLayout jPanel4Layout = new java.awt.GridBagLayout();
         jPanel4Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
-        jPanel4Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0};
+        jPanel4Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0};
         pnlDatos.setLayout(jPanel4Layout);
 
         jLabel1.setText("ID Correcto:");
@@ -72,16 +81,16 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlDatos.add(jLabel1, gridBagConstraints);
 
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTextField1.setMinimumSize(new java.awt.Dimension(40, 20));
-        jTextField1.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtIdIncorrecto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtIdIncorrecto.setMinimumSize(new java.awt.Dimension(40, 20));
+        txtIdIncorrecto.setPreferredSize(new java.awt.Dimension(200, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
-        pnlDatos.add(jTextField1, gridBagConstraints);
+        pnlDatos.add(txtIdIncorrecto, gridBagConstraints);
 
         jLabel2.setText("ID Incorrecto:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -91,11 +100,23 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlDatos.add(jLabel2, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        pnlDatos.add(jTextField2, gridBagConstraints);
+        pnlDatos.add(txtIdCorrecto, gridBagConstraints);
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 13;
+        pnlDatos.add(btnBuscar, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -112,32 +133,33 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         pnlMarcaciones.setLayout(jPanel5Layout);
 
         java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
-        new java.awt.GridBagLayout().columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
-        new java.awt.GridBagLayout().rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0};
+        jPanel2Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        jPanel2Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         jPanel2.setLayout(jPanel2Layout);
 
-        jLabel4.setText("Usuario Correcto");
+        jLabel4.setText("Usuario Correcto:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 9;
         jPanel2.add(jLabel4, gridBagConstraints);
 
-        jTextField5.setText("# Marcaciones");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 11;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        jPanel2.add(jTextField5, gridBagConstraints);
-
-        jToggleButton1.setText("Mostrar marcaciones");
+        txtNumEventIdC.setEditable(false);
+        txtNumEventIdC.setText("# Marcaciones");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 11;
-        jPanel2.add(jToggleButton1, gridBagConstraints);
+        gridBagConstraints.gridwidth = 21;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        jPanel2.add(txtNumEventIdC, gridBagConstraints);
+
+        btnShowEventIdC.setText("Mostrar marcaciones");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 21;
+        jPanel2.add(btnShowEventIdC, gridBagConstraints);
 
         jXTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -151,12 +173,22 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 21;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
         jPanel2.add(jScrollPane1, gridBagConstraints);
+
+        txtNombreIdCorrecto.setEditable(false);
+        txtNombreIdCorrecto.setBackground(new java.awt.Color(255, 255, 255));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        jPanel2.add(txtNombreIdCorrecto, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -168,31 +200,32 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         pnlMarcaciones.add(jPanel2, gridBagConstraints);
 
         java.awt.GridBagLayout jPanel3Layout = new java.awt.GridBagLayout();
-        jPanel3Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
-        jPanel3Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0};
+        jPanel3Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        jPanel3Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         jPanel3.setLayout(jPanel3Layout);
 
-        jLabel3.setText("Usuario Incorrecto");
+        jLabel3.setText("Usuario Incorrecto:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 9;
         jPanel3.add(jLabel3, gridBagConstraints);
 
-        jToggleButton2.setText("Mostrar marcaciones");
+        btnShowEventIdI.setText("Mostrar marcaciones");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 21;
+        jPanel3.add(btnShowEventIdI, gridBagConstraints);
+
+        txtNumEventIdI.setEditable(false);
+        txtNumEventIdI.setText("# Marcaciones");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 11;
-        jPanel3.add(jToggleButton2, gridBagConstraints);
-
-        jTextField4.setText("# Marcaciones");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 21;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel3.add(jTextField4, gridBagConstraints);
+        jPanel3.add(txtNumEventIdI, gridBagConstraints);
 
         jXTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -206,12 +239,22 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 21;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
         jPanel3.add(jScrollPane2, gridBagConstraints);
+
+        txtNombreIdIncorrecto.setEditable(false);
+        txtNombreIdIncorrecto.setBackground(new java.awt.Color(255, 255, 255));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        jPanel3.add(txtNombreIdIncorrecto, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -233,8 +276,8 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
 
         pnlBtn.setLayout(new java.awt.GridBagLayout());
 
-        jToggleButton3.setText("Hacer cruce");
-        pnlBtn.add(jToggleButton3, new java.awt.GridBagConstraints());
+        btnCruce.setText("Hacer cruce");
+        pnlBtn.add(btnCruce, new java.awt.GridBagConstraints());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -245,8 +288,19 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        if(erroresBusqueda()){
+            return;
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JToggleButton btnCruce;
+    private javax.swing.JToggleButton btnShowEventIdC;
+    private javax.swing.JToggleButton btnShowEventIdI;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -255,17 +309,53 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
     private org.jdesktop.swingx.JXTable jXTable1;
     private org.jdesktop.swingx.JXTable jXTable2;
     private javax.swing.JPanel pnlBtn;
     private javax.swing.JPanel pnlDatos;
     private javax.swing.JPanel pnlMarcaciones;
+    private javax.swing.JTextField txtIdCorrecto;
+    private javax.swing.JTextField txtIdIncorrecto;
+    private javax.swing.JTextField txtNombreIdCorrecto;
+    private javax.swing.JTextField txtNombreIdIncorrecto;
+    private javax.swing.JTextField txtNumEventIdC;
+    private javax.swing.JTextField txtNumEventIdI;
     // End of variables declaration//GEN-END:variables
+
+    private boolean erroresBusqueda(){
+        int errores = 0;
+        String mensaje = "";
+        if(txtIdCorrecto.getText().isEmpty()){
+            errores++;
+            mensaje += "> Debe ingresar el ID Correcto en el campo especificado";
+        }
+        if(txtIdIncorrecto.getText().isEmpty()){
+            errores++;
+            mensaje += "> Debe ingresar el ID Incorrecto en el campo especificado";
+        }
+        
+        if(!txtIdCorrecto.getText().isEmpty() && !txtIdIncorrecto.getText().isEmpty()){
+            User userCorrecto = uc.buscarPorId(txtIdCorrecto);
+            User userIncorrecto = uc.buscarPorId(txtIdIncorrecto);
+            
+            if(userCorrecto == null){
+                errores++;
+                mensaje += "> El id "+txtIdCorrecto.getText()+" no existe en la base de datos.";
+            }
+            if(userIncorrecto == null){
+                errores++;
+                mensaje += "> El id "+txtIdIncorrecto.getText()+" no existe en la base de datos.";
+            }
+        }
+        if(errores > 0){
+            JOptionPane.showMessageDialog(this, "Se ha(n) encontrado el(los) siguiente(s) error(es):\n" + mensaje, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return errores!=0;
+    }
+    
+    private void inicializar(){
+        
+        uc = new UserControlador();
+    }
 }
