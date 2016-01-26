@@ -24,22 +24,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "TB_USER")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TbUser.findAll", query = "SELECT t FROM TbUser t"),
-    @NamedQuery(name = "TbUser.findByNUserIdn", query = "SELECT t FROM TbUser t WHERE t.nUserIdn = :nUserIdn"),
-    @NamedQuery(name = "TbUser.findBySUserName", query = "SELECT t FROM TbUser t WHERE t.sUserName = :sUserName"),
-    @NamedQuery(name = "TbUser.findByNDepartmentIdn", query = "SELECT t FROM TbUser t WHERE t.nDepartmentIdn = :nDepartmentIdn"),
-    @NamedQuery(name = "TbUser.findBySTelNumber", query = "SELECT t FROM TbUser t WHERE t.sTelNumber = :sTelNumber"),
-    @NamedQuery(name = "TbUser.findBySEmail", query = "SELECT t FROM TbUser t WHERE t.sEmail = :sEmail"),
-    @NamedQuery(name = "TbUser.findBySUserID", query = "SELECT t FROM TbUser t WHERE t.sUserID = :sUserID"),
-    @NamedQuery(name = "TbUser.findBySPassword", query = "SELECT t FROM TbUser t WHERE t.sPassword = :sPassword"),
-    @NamedQuery(name = "TbUser.findByNStartDate", query = "SELECT t FROM TbUser t WHERE t.nStartDate = :nStartDate"),
-    @NamedQuery(name = "TbUser.findByNEndDate", query = "SELECT t FROM TbUser t WHERE t.nEndDate = :nEndDate"),
-    @NamedQuery(name = "TbUser.findByNAdminLevel", query = "SELECT t FROM TbUser t WHERE t.nAdminLevel = :nAdminLevel"),
-    @NamedQuery(name = "TbUser.findByNAuthMode", query = "SELECT t FROM TbUser t WHERE t.nAuthMode = :nAuthMode"),
-    @NamedQuery(name = "TbUser.findByNAuthLimitCount", query = "SELECT t FROM TbUser t WHERE t.nAuthLimitCount = :nAuthLimitCount"),
-    @NamedQuery(name = "TbUser.findByNTimedAPB", query = "SELECT t FROM TbUser t WHERE t.nTimedAPB = :nTimedAPB"),
-    @NamedQuery(name = "TbUser.findByNEncryption", query = "SELECT t FROM TbUser t WHERE t.nEncryption = :nEncryption")})
-public class TbUser implements Serializable {
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+    @NamedQuery(name = "User.findByNUserIdn", query = "SELECT u FROM User u WHERE u.nUserIdn = :nUserIdn"),
+    @NamedQuery(name = "User.findBySUserName", query = "SELECT u FROM User u WHERE u.sUserName = :sUserName"),
+    @NamedQuery(name = "User.findByNDepartmentIdn", query = "SELECT u FROM User u WHERE u.nDepartmentIdn = :nDepartmentIdn"),
+    @NamedQuery(name = "User.findBySTelNumber", query = "SELECT u FROM User u WHERE u.sTelNumber = :sTelNumber"),
+    @NamedQuery(name = "User.findBySEmail", query = "SELECT u FROM User u WHERE u.sEmail = :sEmail"),
+    @NamedQuery(name = "User.findBySUserID", query = "SELECT u FROM User u WHERE u.sUserID = :sUserID"),
+    @NamedQuery(name = "User.findBySPassword", query = "SELECT u FROM User u WHERE u.sPassword = :sPassword"),
+    @NamedQuery(name = "User.findByNStartDate", query = "SELECT u FROM User u WHERE u.nStartDate = :nStartDate"),
+    @NamedQuery(name = "User.findByNEndDate", query = "SELECT u FROM User u WHERE u.nEndDate = :nEndDate"),
+    @NamedQuery(name = "User.findByNAdminLevel", query = "SELECT u FROM User u WHERE u.nAdminLevel = :nAdminLevel"),
+    @NamedQuery(name = "User.findByNAuthMode", query = "SELECT u FROM User u WHERE u.nAuthMode = :nAuthMode"),
+    @NamedQuery(name = "User.findByNAuthLimitCount", query = "SELECT u FROM User u WHERE u.nAuthLimitCount = :nAuthLimitCount"),
+    @NamedQuery(name = "User.findByNTimedAPB", query = "SELECT u FROM User u WHERE u.nTimedAPB = :nTimedAPB"),
+    @NamedQuery(name = "User.findByNEncryption", query = "SELECT u FROM User u WHERE u.nEncryption = :nEncryption")})
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -90,14 +90,14 @@ public class TbUser implements Serializable {
     @Column(name = "nEncryption")
     private int nEncryption;
 
-    public TbUser() {
+    public User() {
     }
 
-    public TbUser(Integer nUserIdn) {
+    public User(Integer nUserIdn) {
         this.nUserIdn = nUserIdn;
     }
 
-    public TbUser(Integer nUserIdn, String sUserName, int nDepartmentIdn, String sTelNumber, String sEmail, String sUserID, String sPassword, byte[] bPassword2, int nStartDate, int nEndDate, int nAdminLevel, int nAuthMode, int nAuthLimitCount, int nTimedAPB, int nEncryption) {
+    public User(Integer nUserIdn, String sUserName, int nDepartmentIdn, String sTelNumber, String sEmail, String sUserID, String sPassword, byte[] bPassword2, int nStartDate, int nEndDate, int nAdminLevel, int nAuthMode, int nAuthLimitCount, int nTimedAPB, int nEncryption) {
         this.nUserIdn = nUserIdn;
         this.sUserName = sUserName;
         this.nDepartmentIdn = nDepartmentIdn;
@@ -245,10 +245,10 @@ public class TbUser implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TbUser)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        TbUser other = (TbUser) object;
+        User other = (User) object;
         if ((this.nUserIdn == null && other.nUserIdn != null) || (this.nUserIdn != null && !this.nUserIdn.equals(other.nUserIdn))) {
             return false;
         }
@@ -257,7 +257,7 @@ public class TbUser implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.TbUser[ nUserIdn=" + nUserIdn + " ]";
+        return "modelo.User[ nUserIdn=" + nUserIdn + " ]";
     }
     
 }

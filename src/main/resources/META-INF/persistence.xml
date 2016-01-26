@@ -6,6 +6,10 @@
     <class>modelo.TbUserDept</class>
     <class>modelo.TbUser</class>
     <class>modelo.TbEventLog</class>
+    <class>modelo.EventData</class>
+    <class>modelo.EventLog</class>
+    <class>modelo.UserDept</class>
+    <class>modelo.User</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://192.168.1.250\SQL2008R2;databaseName=bd_biostar_minedu"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>

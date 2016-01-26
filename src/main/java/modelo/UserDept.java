@@ -23,13 +23,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "TB_USER_DEPT")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TbUserDept.findAll", query = "SELECT t FROM TbUserDept t"),
-    @NamedQuery(name = "TbUserDept.findByNDepartmentIdn", query = "SELECT t FROM TbUserDept t WHERE t.nDepartmentIdn = :nDepartmentIdn"),
-    @NamedQuery(name = "TbUserDept.findBySName", query = "SELECT t FROM TbUserDept t WHERE t.sName = :sName"),
-    @NamedQuery(name = "TbUserDept.findBySDepartment", query = "SELECT t FROM TbUserDept t WHERE t.sDepartment = :sDepartment"),
-    @NamedQuery(name = "TbUserDept.findByNDepth", query = "SELECT t FROM TbUserDept t WHERE t.nDepth = :nDepth"),
-    @NamedQuery(name = "TbUserDept.findByNParentIdn", query = "SELECT t FROM TbUserDept t WHERE t.nParentIdn = :nParentIdn")})
-public class TbUserDept implements Serializable {
+    @NamedQuery(name = "UserDept.findAll", query = "SELECT u FROM UserDept u"),
+    @NamedQuery(name = "UserDept.findByNDepartmentIdn", query = "SELECT u FROM UserDept u WHERE u.nDepartmentIdn = :nDepartmentIdn"),
+    @NamedQuery(name = "UserDept.findBySName", query = "SELECT u FROM UserDept u WHERE u.sName = :sName"),
+    @NamedQuery(name = "UserDept.findBySDepartment", query = "SELECT u FROM UserDept u WHERE u.sDepartment = :sDepartment"),
+    @NamedQuery(name = "UserDept.findByNDepth", query = "SELECT u FROM UserDept u WHERE u.nDepth = :nDepth"),
+    @NamedQuery(name = "UserDept.findByNParentIdn", query = "SELECT u FROM UserDept u WHERE u.nParentIdn = :nParentIdn")})
+public class UserDept implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,14 +49,14 @@ public class TbUserDept implements Serializable {
     @Column(name = "nParentIdn")
     private int nParentIdn;
 
-    public TbUserDept() {
+    public UserDept() {
     }
 
-    public TbUserDept(Integer nDepartmentIdn) {
+    public UserDept(Integer nDepartmentIdn) {
         this.nDepartmentIdn = nDepartmentIdn;
     }
 
-    public TbUserDept(Integer nDepartmentIdn, String sName, String sDepartment, short nDepth, int nParentIdn) {
+    public UserDept(Integer nDepartmentIdn, String sName, String sDepartment, short nDepth, int nParentIdn) {
         this.nDepartmentIdn = nDepartmentIdn;
         this.sName = sName;
         this.sDepartment = sDepartment;
@@ -114,10 +114,10 @@ public class TbUserDept implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TbUserDept)) {
+        if (!(object instanceof UserDept)) {
             return false;
         }
-        TbUserDept other = (TbUserDept) object;
+        UserDept other = (UserDept) object;
         if ((this.nDepartmentIdn == null && other.nDepartmentIdn != null) || (this.nDepartmentIdn != null && !this.nDepartmentIdn.equals(other.nDepartmentIdn))) {
             return false;
         }
@@ -126,7 +126,7 @@ public class TbUserDept implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.TbUserDept[ nDepartmentIdn=" + nDepartmentIdn + " ]";
+        return "modelo.UserDept[ nDepartmentIdn=" + nDepartmentIdn + " ]";
     }
     
 }

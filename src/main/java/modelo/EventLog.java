@@ -23,21 +23,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "TB_EVENT_LOG")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TbEventLog.findAll", query = "SELECT t FROM TbEventLog t"),
-    @NamedQuery(name = "TbEventLog.findByNEventLogIdn", query = "SELECT t FROM TbEventLog t WHERE t.nEventLogIdn = :nEventLogIdn"),
-    @NamedQuery(name = "TbEventLog.findByNDateTime", query = "SELECT t FROM TbEventLog t WHERE t.tbEventLogPK.nDateTime = :nDateTime"),
-    @NamedQuery(name = "TbEventLog.findByNReaderIdn", query = "SELECT t FROM TbEventLog t WHERE t.tbEventLogPK.nReaderIdn = :nReaderIdn"),
-    @NamedQuery(name = "TbEventLog.findByNEventIdn", query = "SELECT t FROM TbEventLog t WHERE t.tbEventLogPK.nEventIdn = :nEventIdn"),
-    @NamedQuery(name = "TbEventLog.findByNUserID", query = "SELECT t FROM TbEventLog t WHERE t.tbEventLogPK.nUserID = :nUserID"),
-    @NamedQuery(name = "TbEventLog.findByNIsLog", query = "SELECT t FROM TbEventLog t WHERE t.nIsLog = :nIsLog"),
-    @NamedQuery(name = "TbEventLog.findByNTNAEvent", query = "SELECT t FROM TbEventLog t WHERE t.nTNAEvent = :nTNAEvent"),
-    @NamedQuery(name = "TbEventLog.findByNIsUseTA", query = "SELECT t FROM TbEventLog t WHERE t.nIsUseTA = :nIsUseTA"),
-    @NamedQuery(name = "TbEventLog.findByNType", query = "SELECT t FROM TbEventLog t WHERE t.nType = :nType")})
-public class TbEventLog implements Serializable {
+    @NamedQuery(name = "EventLog.findAll", query = "SELECT e FROM EventLog e"),
+    @NamedQuery(name = "EventLog.findByNEventLogIdn", query = "SELECT e FROM EventLog e WHERE e.nEventLogIdn = :nEventLogIdn"),
+    @NamedQuery(name = "EventLog.findByNDateTime", query = "SELECT e FROM EventLog e WHERE e.eventLogPK.nDateTime = :nDateTime"),
+    @NamedQuery(name = "EventLog.findByNReaderIdn", query = "SELECT e FROM EventLog e WHERE e.eventLogPK.nReaderIdn = :nReaderIdn"),
+    @NamedQuery(name = "EventLog.findByNEventIdn", query = "SELECT e FROM EventLog e WHERE e.eventLogPK.nEventIdn = :nEventIdn"),
+    @NamedQuery(name = "EventLog.findByNUserID", query = "SELECT e FROM EventLog e WHERE e.eventLogPK.nUserID = :nUserID"),
+    @NamedQuery(name = "EventLog.findByNIsLog", query = "SELECT e FROM EventLog e WHERE e.nIsLog = :nIsLog"),
+    @NamedQuery(name = "EventLog.findByNTNAEvent", query = "SELECT e FROM EventLog e WHERE e.nTNAEvent = :nTNAEvent"),
+    @NamedQuery(name = "EventLog.findByNIsUseTA", query = "SELECT e FROM EventLog e WHERE e.nIsUseTA = :nIsUseTA"),
+    @NamedQuery(name = "EventLog.findByNType", query = "SELECT e FROM EventLog e WHERE e.nType = :nType")})
+public class EventLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected TbEventLogPK tbEventLogPK;
+    protected EventLogPK eventLogPK;
     @Basic(optional = false)
     @Column(name = "nEventLogIdn")
     private int nEventLogIdn;
@@ -54,15 +54,15 @@ public class TbEventLog implements Serializable {
     @Column(name = "nType")
     private short nType;
 
-    public TbEventLog() {
+    public EventLog() {
     }
 
-    public TbEventLog(TbEventLogPK tbEventLogPK) {
-        this.tbEventLogPK = tbEventLogPK;
+    public EventLog(EventLogPK eventLogPK) {
+        this.eventLogPK = eventLogPK;
     }
 
-    public TbEventLog(TbEventLogPK tbEventLogPK, int nEventLogIdn, short nIsLog, short nTNAEvent, short nIsUseTA, short nType) {
-        this.tbEventLogPK = tbEventLogPK;
+    public EventLog(EventLogPK eventLogPK, int nEventLogIdn, short nIsLog, short nTNAEvent, short nIsUseTA, short nType) {
+        this.eventLogPK = eventLogPK;
         this.nEventLogIdn = nEventLogIdn;
         this.nIsLog = nIsLog;
         this.nTNAEvent = nTNAEvent;
@@ -70,16 +70,16 @@ public class TbEventLog implements Serializable {
         this.nType = nType;
     }
 
-    public TbEventLog(int nDateTime, int nReaderIdn, int nEventIdn, int nUserID) {
-        this.tbEventLogPK = new TbEventLogPK(nDateTime, nReaderIdn, nEventIdn, nUserID);
+    public EventLog(int nDateTime, int nReaderIdn, int nEventIdn, int nUserID) {
+        this.eventLogPK = new EventLogPK(nDateTime, nReaderIdn, nEventIdn, nUserID);
     }
 
-    public TbEventLogPK getTbEventLogPK() {
-        return tbEventLogPK;
+    public EventLogPK getEventLogPK() {
+        return eventLogPK;
     }
 
-    public void setTbEventLogPK(TbEventLogPK tbEventLogPK) {
-        this.tbEventLogPK = tbEventLogPK;
+    public void setEventLogPK(EventLogPK eventLogPK) {
+        this.eventLogPK = eventLogPK;
     }
 
     public int getNEventLogIdn() {
@@ -125,18 +125,18 @@ public class TbEventLog implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (tbEventLogPK != null ? tbEventLogPK.hashCode() : 0);
+        hash += (eventLogPK != null ? eventLogPK.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TbEventLog)) {
+        if (!(object instanceof EventLog)) {
             return false;
         }
-        TbEventLog other = (TbEventLog) object;
-        if ((this.tbEventLogPK == null && other.tbEventLogPK != null) || (this.tbEventLogPK != null && !this.tbEventLogPK.equals(other.tbEventLogPK))) {
+        EventLog other = (EventLog) object;
+        if ((this.eventLogPK == null && other.eventLogPK != null) || (this.eventLogPK != null && !this.eventLogPK.equals(other.eventLogPK))) {
             return false;
         }
         return true;
@@ -144,7 +144,7 @@ public class TbEventLog implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.TbEventLog[ tbEventLogPK=" + tbEventLogPK + " ]";
+        return "modelo.EventLog[ eventLogPK=" + eventLogPK + " ]";
     }
     
 }

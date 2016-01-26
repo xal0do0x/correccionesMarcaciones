@@ -23,11 +23,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "TB_EVENT_DATA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TbEventData.findAll", query = "SELECT t FROM TbEventData t"),
-    @NamedQuery(name = "TbEventData.findByNEventIdn", query = "SELECT t FROM TbEventData t WHERE t.nEventIdn = :nEventIdn"),
-    @NamedQuery(name = "TbEventData.findBySName", query = "SELECT t FROM TbEventData t WHERE t.sName = :sName"),
-    @NamedQuery(name = "TbEventData.findBySDescription", query = "SELECT t FROM TbEventData t WHERE t.sDescription = :sDescription")})
-public class TbEventData implements Serializable {
+    @NamedQuery(name = "EventData.findAll", query = "SELECT e FROM EventData e"),
+    @NamedQuery(name = "EventData.findByNEventIdn", query = "SELECT e FROM EventData e WHERE e.nEventIdn = :nEventIdn"),
+    @NamedQuery(name = "EventData.findBySName", query = "SELECT e FROM EventData e WHERE e.sName = :sName"),
+    @NamedQuery(name = "EventData.findBySDescription", query = "SELECT e FROM EventData e WHERE e.sDescription = :sDescription")})
+public class EventData implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,14 +41,14 @@ public class TbEventData implements Serializable {
     @Column(name = "sDescription")
     private String sDescription;
 
-    public TbEventData() {
+    public EventData() {
     }
 
-    public TbEventData(Integer nEventIdn) {
+    public EventData(Integer nEventIdn) {
         this.nEventIdn = nEventIdn;
     }
 
-    public TbEventData(Integer nEventIdn, String sName, String sDescription) {
+    public EventData(Integer nEventIdn, String sName, String sDescription) {
         this.nEventIdn = nEventIdn;
         this.sName = sName;
         this.sDescription = sDescription;
@@ -88,10 +88,10 @@ public class TbEventData implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TbEventData)) {
+        if (!(object instanceof EventData)) {
             return false;
         }
-        TbEventData other = (TbEventData) object;
+        EventData other = (EventData) object;
         if ((this.nEventIdn == null && other.nEventIdn != null) || (this.nEventIdn != null && !this.nEventIdn.equals(other.nEventIdn))) {
             return false;
         }
@@ -100,7 +100,7 @@ public class TbEventData implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.TbEventData[ nEventIdn=" + nEventIdn + " ]";
+        return "modelo.EventData[ nEventIdn=" + nEventIdn + " ]";
     }
     
 }

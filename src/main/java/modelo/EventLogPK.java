@@ -15,7 +15,7 @@ import javax.persistence.Embeddable;
  * @author Aldo
  */
 @Embeddable
-public class TbEventLogPK implements Serializable {
+public class EventLogPK implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "nDateTime")
@@ -30,10 +30,10 @@ public class TbEventLogPK implements Serializable {
     @Column(name = "nUserID")
     private int nUserID;
 
-    public TbEventLogPK() {
+    public EventLogPK() {
     }
 
-    public TbEventLogPK(int nDateTime, int nReaderIdn, int nEventIdn, int nUserID) {
+    public EventLogPK(int nDateTime, int nReaderIdn, int nEventIdn, int nUserID) {
         this.nDateTime = nDateTime;
         this.nReaderIdn = nReaderIdn;
         this.nEventIdn = nEventIdn;
@@ -85,10 +85,10 @@ public class TbEventLogPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TbEventLogPK)) {
+        if (!(object instanceof EventLogPK)) {
             return false;
         }
-        TbEventLogPK other = (TbEventLogPK) object;
+        EventLogPK other = (EventLogPK) object;
         if (this.nDateTime != other.nDateTime) {
             return false;
         }
@@ -106,7 +106,7 @@ public class TbEventLogPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.TbEventLogPK[ nDateTime=" + nDateTime + ", nReaderIdn=" + nReaderIdn + ", nEventIdn=" + nEventIdn + ", nUserID=" + nUserID + " ]";
+        return "modelo.EventLogPK[ nDateTime=" + nDateTime + ", nReaderIdn=" + nReaderIdn + ", nEventIdn=" + nEventIdn + ", nUserID=" + nUserID + " ]";
     }
     
 }
