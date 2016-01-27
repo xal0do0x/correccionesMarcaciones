@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package entidades;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -22,25 +23,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "TB_EVENT_LOG")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "EventLog.findAll", query = "SELECT e FROM EventLog e"),
-    @NamedQuery(name = "EventLog.findByNEventLogIdn", query = "SELECT e FROM EventLog e WHERE e.nEventLogIdn = :nEventLogIdn"),
-    @NamedQuery(name = "EventLog.findByNDateTime", query = "SELECT e FROM EventLog e WHERE e.eventLogPK.nDateTime = :nDateTime"),
-    @NamedQuery(name = "EventLog.findByNReaderIdn", query = "SELECT e FROM EventLog e WHERE e.eventLogPK.nReaderIdn = :nReaderIdn"),
-    @NamedQuery(name = "EventLog.findByNEventIdn", query = "SELECT e FROM EventLog e WHERE e.eventLogPK.nEventIdn = :nEventIdn"),
-    @NamedQuery(name = "EventLog.findByNUserID", query = "SELECT e FROM EventLog e WHERE e.eventLogPK.nUserID = :nUserID"),
-    @NamedQuery(name = "EventLog.findByNIsLog", query = "SELECT e FROM EventLog e WHERE e.nIsLog = :nIsLog"),
-    @NamedQuery(name = "EventLog.findByNTNAEvent", query = "SELECT e FROM EventLog e WHERE e.nTNAEvent = :nTNAEvent"),
-    @NamedQuery(name = "EventLog.findByNIsUseTA", query = "SELECT e FROM EventLog e WHERE e.nIsUseTA = :nIsUseTA"),
-    @NamedQuery(name = "EventLog.findByNType", query = "SELECT e FROM EventLog e WHERE e.nType = :nType")})
 public class EventLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected EventLogPK eventLogPK;
+    @Id
     @Basic(optional = false)
     @Column(name = "nEventLogIdn")
-    private int nEventLogIdn;
+    private Integer nEventLogIdn;
+    @Basic(optional = false)
+    @Column(name = "nDateTime")
+    private int nDateTime;
+    @Basic(optional = false)
+    @Column(name = "nReaderIdn")
+    private int nReaderIdn;
+    @Basic(optional = false)
+    @Column(name = "nEventIdn")
+    private int nEventIdn;
+    @Basic(optional = false)
+    @Column(name = "nUserID")
+    private int nUserID;
     @Basic(optional = false)
     @Column(name = "nIsLog")
     private short nIsLog;
@@ -57,37 +58,60 @@ public class EventLog implements Serializable {
     public EventLog() {
     }
 
-    public EventLog(EventLogPK eventLogPK) {
-        this.eventLogPK = eventLogPK;
+    public EventLog(Integer nEventLogIdn) {
+        this.nEventLogIdn = nEventLogIdn;
     }
 
-    public EventLog(EventLogPK eventLogPK, int nEventLogIdn, short nIsLog, short nTNAEvent, short nIsUseTA, short nType) {
-        this.eventLogPK = eventLogPK;
+    public EventLog(Integer nEventLogIdn,int nDateTime,int nReaderIdn, int nEventIdn, int nUserID, short nIsLog, short nTNAEvent, short nIsUseTA, short nType) {
         this.nEventLogIdn = nEventLogIdn;
+        this.nDateTime = nDateTime;
+        this.nReaderIdn = nReaderIdn;
+        this.nEventIdn = nEventIdn;
+        this.nUserID = nUserID;
         this.nIsLog = nIsLog;
         this.nTNAEvent = nTNAEvent;
         this.nIsUseTA = nIsUseTA;
         this.nType = nType;
     }
 
-    public EventLog(int nDateTime, int nReaderIdn, int nEventIdn, int nUserID) {
-        this.eventLogPK = new EventLogPK(nDateTime, nReaderIdn, nEventIdn, nUserID);
-    }
-
-    public EventLogPK getEventLogPK() {
-        return eventLogPK;
-    }
-
-    public void setEventLogPK(EventLogPK eventLogPK) {
-        this.eventLogPK = eventLogPK;
-    }
-
-    public int getNEventLogIdn() {
+    public Integer getNEventLogIdn() {
         return nEventLogIdn;
     }
 
-    public void setNEventLogIdn(int nEventLogIdn) {
+    public void setNEventLogIdn(Integer nEventLogIdn) {
         this.nEventLogIdn = nEventLogIdn;
+    }
+
+    public int getnDateTime() {
+        return nDateTime;
+    }
+
+    public void setnDateTime(int nDateTime) {
+        this.nDateTime = nDateTime;
+    }
+
+    public int getnReaderIdn() {
+        return nReaderIdn;
+    }
+
+    public void setnReaderIdn(int nReaderIdn) {
+        this.nReaderIdn = nReaderIdn;
+    }
+
+    public int getnEventIdn() {
+        return nEventIdn;
+    }
+
+    public void setnEventIdn(int nEventIdn) {
+        this.nEventIdn = nEventIdn;
+    }
+
+    public int getnUserID() {
+        return nUserID;
+    }
+
+    public void setnUserID(int nUserID) {
+        this.nUserID = nUserID;
     }
 
     public short getNIsLog() {
@@ -125,7 +149,7 @@ public class EventLog implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (eventLogPK != null ? eventLogPK.hashCode() : 0);
+        hash += (nEventLogIdn != null ? nEventLogIdn.hashCode() : 0);
         return hash;
     }
 
@@ -136,7 +160,7 @@ public class EventLog implements Serializable {
             return false;
         }
         EventLog other = (EventLog) object;
-        if ((this.eventLogPK == null && other.eventLogPK != null) || (this.eventLogPK != null && !this.eventLogPK.equals(other.eventLogPK))) {
+        if ((this.nEventLogIdn == null && other.nEventLogIdn != null) || (this.nEventLogIdn != null && !this.nEventLogIdn.equals(other.nEventLogIdn))) {
             return false;
         }
         return true;
@@ -144,7 +168,7 @@ public class EventLog implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.EventLog[ eventLogPK=" + eventLogPK + " ]";
+        return "modelo.EventLog[ nEventLogIdn=" + nEventLogIdn + " ]";
     }
     
 }

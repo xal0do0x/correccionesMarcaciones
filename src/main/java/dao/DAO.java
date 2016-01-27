@@ -29,7 +29,7 @@ import utiles.Encriptador;
  */
 public class DAO<T> {
 
-    protected String PU = "biosis-PU";
+    protected String PU = "biostar-PU";
     protected static EntityManager em;
     protected Class<T> clase;
     private static final Logger LOG = Logger.getLogger(DAO.class.getName());

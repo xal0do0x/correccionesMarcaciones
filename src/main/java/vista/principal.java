@@ -6,6 +6,9 @@
 package vista;
 
 import java.awt.Dimension;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 
 /**
@@ -30,12 +33,17 @@ public class principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
         desktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuCorrect = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         mnuConf = new javax.swing.JMenu();
         mnuConex = new javax.swing.JMenuItem();
         mnuExit = new javax.swing.JMenu();
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Modulo de corrección de Marcaciones - Biosis");
@@ -52,6 +60,18 @@ public class principal extends javax.swing.JFrame {
         );
 
         mnuCorrect.setText("Corrección");
+
+        jMenuItem1.setText("Corrección Individual");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnuCorrect.add(jMenuItem1);
+
+        jMenuItem3.setText("Correccion Masiva");
+        mnuCorrect.add(jMenuItem3);
+
         jMenuBar1.add(mnuCorrect);
 
         mnuConf.setText("Configuración");
@@ -91,6 +111,12 @@ public class principal extends javax.swing.JFrame {
         agregarAPanel(configBase, this.getSize().width, 450);
     }//GEN-LAST:event_mnuConexActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        correccionIndividual cI = new correccionIndividual();
+        agregarAPanel(cI, true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     private void agregarAPanel(JInternalFrame internal, int ancho, int largo) {
         if (!this.desktopPane.isAncestorOf(internal)) {
             this.desktopPane.add(internal);
@@ -100,6 +126,22 @@ public class principal extends javax.swing.JFrame {
             Dimension jInternalFrameSize = internal.getSize();
             internal.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
                     (desktopSize.height - jInternalFrameSize.height) / 2);
+        }
+    }
+    Dimension minimo = new Dimension(1024, 628);
+    private void agregarAPanel(JInternalFrame internal, boolean maximizar) {
+        if (!this.desktopPane.isAncestorOf(internal)) {
+            this.desktopPane.add(internal);
+            internal.setVisible(true);
+            try {
+                
+                internal.setMinimumSize(minimo);
+                internal.setPreferredSize(minimo);
+//                internal.setMaximumSize(minimo);
+                internal.setMaximum(maximizar);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     /**
@@ -140,6 +182,9 @@ public class principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem mnuConex;
     private javax.swing.JMenu mnuConf;
     private javax.swing.JMenu mnuCorrect;

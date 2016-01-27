@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package entidades;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -23,22 +23,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "TB_USER")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name = "User.findByNUserIdn", query = "SELECT u FROM User u WHERE u.nUserIdn = :nUserIdn"),
-    @NamedQuery(name = "User.findBySUserName", query = "SELECT u FROM User u WHERE u.sUserName = :sUserName"),
-    @NamedQuery(name = "User.findByNDepartmentIdn", query = "SELECT u FROM User u WHERE u.nDepartmentIdn = :nDepartmentIdn"),
-    @NamedQuery(name = "User.findBySTelNumber", query = "SELECT u FROM User u WHERE u.sTelNumber = :sTelNumber"),
-    @NamedQuery(name = "User.findBySEmail", query = "SELECT u FROM User u WHERE u.sEmail = :sEmail"),
-    @NamedQuery(name = "User.findBySUserID", query = "SELECT u FROM User u WHERE u.sUserID = :sUserID"),
-    @NamedQuery(name = "User.findBySPassword", query = "SELECT u FROM User u WHERE u.sPassword = :sPassword"),
-    @NamedQuery(name = "User.findByNStartDate", query = "SELECT u FROM User u WHERE u.nStartDate = :nStartDate"),
-    @NamedQuery(name = "User.findByNEndDate", query = "SELECT u FROM User u WHERE u.nEndDate = :nEndDate"),
-    @NamedQuery(name = "User.findByNAdminLevel", query = "SELECT u FROM User u WHERE u.nAdminLevel = :nAdminLevel"),
-    @NamedQuery(name = "User.findByNAuthMode", query = "SELECT u FROM User u WHERE u.nAuthMode = :nAuthMode"),
-    @NamedQuery(name = "User.findByNAuthLimitCount", query = "SELECT u FROM User u WHERE u.nAuthLimitCount = :nAuthLimitCount"),
-    @NamedQuery(name = "User.findByNTimedAPB", query = "SELECT u FROM User u WHERE u.nTimedAPB = :nTimedAPB"),
-    @NamedQuery(name = "User.findByNEncryption", query = "SELECT u FROM User u WHERE u.nEncryption = :nEncryption")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

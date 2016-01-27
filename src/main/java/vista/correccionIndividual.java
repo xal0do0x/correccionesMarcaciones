@@ -5,9 +5,20 @@
  */
 package vista;
 
+import com.personal.utiles.FormularioUtil;
+import controlador.EventControlador;
 import controlador.UserControlador;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
-import modelo.User;
+import javax.swing.JTable;
+import javax.swing.SpinnerNumberModel;
+import entidades.EventLog;
+import entidades.User;
+import java.util.ArrayList;
+import modelos.MTEventLog;
+import org.jdesktop.observablecollections.ObservableCollections;
+import org.jdesktop.swingx.JXTable;
 
 /**
  *
@@ -18,10 +29,14 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
     /**
      * Creates new form correccionIndividual
      */
+    private List<EventLog> listadoIdC;
+    private List<EventLog> listadoIdI;
     private UserControlador uc;
+    private EventControlador ec;
     public correccionIndividual() {
         initComponents();
         inicializar();
+        bindeoSalvaje();
     }
 
     /**
@@ -43,18 +58,36 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         pnlMarcaciones = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        txtNumEventIdC = new javax.swing.JTextField();
         btnShowEventIdC = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jXTable1 = new org.jdesktop.swingx.JXTable();
+        tblEventsIdC = new org.jdesktop.swingx.JXTable();
         txtNombreIdCorrecto = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtNumEventIdC = new javax.swing.JTextField();
+        pnlNavegacion = new javax.swing.JPanel();
+        btnPrimero = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
+        spPagina = new javax.swing.JSpinner();
+        txtTotal = new javax.swing.JTextField();
+        btnSiguiente = new javax.swing.JButton();
+        btnUltimo = new javax.swing.JButton();
+        cboTamanio = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnShowEventIdI = new javax.swing.JToggleButton();
-        txtNumEventIdI = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jXTable2 = new org.jdesktop.swingx.JXTable();
+        tblEventsIdI = new org.jdesktop.swingx.JXTable();
         txtNombreIdIncorrecto = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtNumEventIdI = new javax.swing.JTextField();
+        pnlNavegacion1 = new javax.swing.JPanel();
+        btnPrimero1 = new javax.swing.JButton();
+        btnAnterior1 = new javax.swing.JButton();
+        spPagina1 = new javax.swing.JSpinner();
+        txtTotal1 = new javax.swing.JTextField();
+        btnSiguiente1 = new javax.swing.JButton();
+        btnUltimo1 = new javax.swing.JButton();
+        cboTamanio1 = new javax.swing.JComboBox();
         pnlBtn = new javax.swing.JPanel();
         btnCruce = new javax.swing.JToggleButton();
 
@@ -82,8 +115,6 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         pnlDatos.add(jLabel1, gridBagConstraints);
 
         txtIdIncorrecto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        txtIdIncorrecto.setMinimumSize(new java.awt.Dimension(40, 20));
-        txtIdIncorrecto.setPreferredSize(new java.awt.Dimension(200, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
@@ -134,34 +165,30 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
 
         java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
         jPanel2Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
-        jPanel2Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        jPanel2Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         jPanel2.setLayout(jPanel2Layout);
 
         jLabel4.setText("Usuario Correcto:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         jPanel2.add(jLabel4, gridBagConstraints);
 
-        txtNumEventIdC.setEditable(false);
-        txtNumEventIdC.setText("# Marcaciones");
+        btnShowEventIdC.setText("Mostrar marcaciones");
+        btnShowEventIdC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowEventIdCActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 21;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        jPanel2.add(txtNumEventIdC, gridBagConstraints);
-
-        btnShowEventIdC.setText("Mostrar marcaciones");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 21;
         jPanel2.add(btnShowEventIdC, gridBagConstraints);
 
-        jXTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblEventsIdC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -169,26 +196,115 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jXTable1);
+        jScrollPane1.setViewportView(tblEventsIdC);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 21;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         jPanel2.add(jScrollPane1, gridBagConstraints);
 
         txtNombreIdCorrecto.setEditable(false);
         txtNombreIdCorrecto.setBackground(new java.awt.Color(255, 255, 255));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 13;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         jPanel2.add(txtNombreIdCorrecto, gridBagConstraints);
+
+        jLabel5.setText("Marcaciones:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        jPanel2.add(jLabel5, gridBagConstraints);
+
+        txtNumEventIdC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumEventIdCActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 20;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.015;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 5);
+        jPanel2.add(txtNumEventIdC, gridBagConstraints);
+
+        pnlNavegacion.setLayout(new java.awt.GridLayout(1, 0, 2, 0));
+
+        btnPrimero.setText("<<");
+        btnPrimero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrimeroActionPerformed(evt);
+            }
+        });
+        pnlNavegacion.add(btnPrimero);
+
+        btnAnterior.setText("<");
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
+        pnlNavegacion.add(btnAnterior);
+
+        spPagina.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+        spPagina.setMinimumSize(new java.awt.Dimension(60, 20));
+        spPagina.setPreferredSize(new java.awt.Dimension(60, 20));
+        spPagina.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spPaginaStateChanged(evt);
+            }
+        });
+        pnlNavegacion.add(spPagina);
+
+        txtTotal.setEditable(false);
+        txtTotal.setColumns(3);
+        txtTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTotal.setText("1");
+        pnlNavegacion.add(txtTotal);
+
+        btnSiguiente.setText(">");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
+        pnlNavegacion.add(btnSiguiente);
+
+        btnUltimo.setText(">>");
+        btnUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimoActionPerformed(evt);
+            }
+        });
+        pnlNavegacion.add(btnUltimo);
+
+        cboTamanio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5", "10", "15", "20", "25", "40", "50" }));
+        cboTamanio.setMinimumSize(new java.awt.Dimension(53, 24));
+        cboTamanio.setPreferredSize(new java.awt.Dimension(53, 24));
+        cboTamanio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTamanioActionPerformed(evt);
+            }
+        });
+        pnlNavegacion.add(cboTamanio);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 21;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        jPanel2.add(pnlNavegacion, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -201,33 +317,30 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
 
         java.awt.GridBagLayout jPanel3Layout = new java.awt.GridBagLayout();
         jPanel3Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
-        jPanel3Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        jPanel3Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         jPanel3.setLayout(jPanel3Layout);
 
         jLabel3.setText("Usuario Incorrecto:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         jPanel3.add(jLabel3, gridBagConstraints);
 
         btnShowEventIdI.setText("Mostrar marcaciones");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 21;
-        jPanel3.add(btnShowEventIdI, gridBagConstraints);
-
-        txtNumEventIdI.setEditable(false);
-        txtNumEventIdI.setText("# Marcaciones");
+        btnShowEventIdI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowEventIdIActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 21;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel3.add(txtNumEventIdI, gridBagConstraints);
+        jPanel3.add(btnShowEventIdI, gridBagConstraints);
 
-        jXTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblEventsIdI.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -235,26 +348,108 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(jXTable2);
+        jScrollPane2.setViewportView(tblEventsIdI);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 21;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         jPanel3.add(jScrollPane2, gridBagConstraints);
 
         txtNombreIdIncorrecto.setEditable(false);
         txtNombreIdIncorrecto.setBackground(new java.awt.Color(255, 255, 255));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 13;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         jPanel3.add(txtNombreIdIncorrecto, gridBagConstraints);
+
+        jLabel6.setText("Marcaciones:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        jPanel3.add(jLabel6, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 20;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.015;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 5);
+        jPanel3.add(txtNumEventIdI, gridBagConstraints);
+
+        pnlNavegacion1.setLayout(new java.awt.GridLayout(1, 0, 2, 0));
+
+        btnPrimero1.setText("<<");
+        btnPrimero1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrimero1ActionPerformed(evt);
+            }
+        });
+        pnlNavegacion1.add(btnPrimero1);
+
+        btnAnterior1.setText("<");
+        btnAnterior1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnterior1ActionPerformed(evt);
+            }
+        });
+        pnlNavegacion1.add(btnAnterior1);
+
+        spPagina1.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+        spPagina1.setMinimumSize(new java.awt.Dimension(60, 20));
+        spPagina1.setPreferredSize(new java.awt.Dimension(60, 20));
+        spPagina1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spPagina1StateChanged(evt);
+            }
+        });
+        pnlNavegacion1.add(spPagina1);
+
+        txtTotal1.setEditable(false);
+        txtTotal1.setColumns(3);
+        txtTotal1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTotal1.setText("1");
+        pnlNavegacion1.add(txtTotal1);
+
+        btnSiguiente1.setText(">");
+        btnSiguiente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguiente1ActionPerformed(evt);
+            }
+        });
+        pnlNavegacion1.add(btnSiguiente1);
+
+        btnUltimo1.setText(">>");
+        btnUltimo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimo1ActionPerformed(evt);
+            }
+        });
+        pnlNavegacion1.add(btnUltimo1);
+
+        cboTamanio1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5", "10", "15", "20", "25", "40", "50" }));
+        cboTamanio1.setMinimumSize(new java.awt.Dimension(53, 24));
+        cboTamanio1.setPreferredSize(new java.awt.Dimension(53, 24));
+        cboTamanio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTamanio1ActionPerformed(evt);
+            }
+        });
+        pnlNavegacion1.add(cboTamanio1);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 21;
+        jPanel3.add(pnlNavegacion1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -290,36 +485,153 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        //Validación de campos vacios e ID's válidos
         if(erroresBusqueda()){
             return;
         }
+
+        /**
+         * eventosIdC -> Eventos de asistencia del ID Correcto.
+         * eventosIdI -> Eventos de asistencia del ID Incorrecto.
+         * */
+        int eventosIdC = ec.contarEventosXID(txtIdCorrecto.getText());
+        int eventosIdI = ec.contarEventosXID(txtIdIncorrecto.getText());
+        
+        User userIdC = uc.buscarPorId(txtIdCorrecto.getText());
+        User userIdI = uc.buscarPorId(txtIdIncorrecto.getText());
+        
+        //Nombres para mostrar
+        txtNombreIdCorrecto.setText(userIdC.getSUserName());
+        txtNombreIdIncorrecto.setText(userIdI.getSUserName());
+        //Cantidades a mostrar
+        txtNumEventIdC.setText(eventosIdC+"");
+        txtNumEventIdI.setText(eventosIdI+"");
+       
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtNumEventIdCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumEventIdCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumEventIdCActionPerformed
+
+    private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
+        // TODO add your handling code here:
+        primero();
+    }//GEN-LAST:event_btnPrimeroActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        // TODO add your handling code here:
+        anterior();
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void spPaginaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spPaginaStateChanged
+        // TODO add your handling code here:
+        this.seleccionPagina();
+    }//GEN-LAST:event_spPaginaStateChanged
+
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        // TODO add your handling code here:
+        siguiente();
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
+        // TODO add your handling code here:
+        ultimo();
+    }//GEN-LAST:event_btnUltimoActionPerformed
+
+    private void cboTamanioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTamanioActionPerformed
+        // TODO add your handling code here:
+        this.paginaActual = 1;
+        buscar(txtIdCorrecto.getText(),listadoIdC,tblEventsIdC);
+        this.actualizarControlesNavegacion();
+    }//GEN-LAST:event_cboTamanioActionPerformed
+
+    private void btnPrimero1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimero1ActionPerformed
+        // TODO add your handling code here:
+        primero();
+    }//GEN-LAST:event_btnPrimero1ActionPerformed
+
+    private void btnAnterior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnterior1ActionPerformed
+        // TODO add your handling code here:
+        anterior();
+    }//GEN-LAST:event_btnAnterior1ActionPerformed
+
+    private void spPagina1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spPagina1StateChanged
+        // TODO add your handling code here:
+        this.seleccionPagina();
+    }//GEN-LAST:event_spPagina1StateChanged
+
+    private void btnSiguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguiente1ActionPerformed
+        // TODO add your handling code here:
+        siguiente();
+    }//GEN-LAST:event_btnSiguiente1ActionPerformed
+
+    private void btnUltimo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimo1ActionPerformed
+        // TODO add your handling code here:
+        ultimo();
+    }//GEN-LAST:event_btnUltimo1ActionPerformed
+
+    private void cboTamanio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTamanio1ActionPerformed
+        // TODO add your handling code here:
+        this.paginaActual = 1;
+        buscar(txtIdCorrecto.getText(),listadoIdC,tblEventsIdC);
+        this.actualizarControlesNavegacion();
+    }//GEN-LAST:event_cboTamanio1ActionPerformed
+
+    private void btnShowEventIdCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowEventIdCActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Mostrar marcaciones ID Correcto:");
+        paginaActual = 1;
+        buscar(txtIdCorrecto.getText(),listadoIdC,tblEventsIdC);
+        actualizarControlesNavegacion();
+    }//GEN-LAST:event_btnShowEventIdCActionPerformed
+
+    private void btnShowEventIdIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowEventIdIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnShowEventIdIActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnterior;
+    private javax.swing.JButton btnAnterior1;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JToggleButton btnCruce;
+    private javax.swing.JButton btnPrimero;
+    private javax.swing.JButton btnPrimero1;
     private javax.swing.JToggleButton btnShowEventIdC;
     private javax.swing.JToggleButton btnShowEventIdI;
+    private javax.swing.JButton btnSiguiente;
+    private javax.swing.JButton btnSiguiente1;
+    private javax.swing.JButton btnUltimo;
+    private javax.swing.JButton btnUltimo1;
+    private javax.swing.JComboBox cboTamanio;
+    private javax.swing.JComboBox cboTamanio1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private org.jdesktop.swingx.JXTable jXTable1;
-    private org.jdesktop.swingx.JXTable jXTable2;
     private javax.swing.JPanel pnlBtn;
     private javax.swing.JPanel pnlDatos;
     private javax.swing.JPanel pnlMarcaciones;
+    private javax.swing.JPanel pnlNavegacion;
+    private javax.swing.JPanel pnlNavegacion1;
+    private javax.swing.JSpinner spPagina;
+    private javax.swing.JSpinner spPagina1;
+    private org.jdesktop.swingx.JXTable tblEventsIdC;
+    private org.jdesktop.swingx.JXTable tblEventsIdI;
     private javax.swing.JTextField txtIdCorrecto;
     private javax.swing.JTextField txtIdIncorrecto;
     private javax.swing.JTextField txtNombreIdCorrecto;
     private javax.swing.JTextField txtNombreIdIncorrecto;
     private javax.swing.JTextField txtNumEventIdC;
     private javax.swing.JTextField txtNumEventIdI;
+    private javax.swing.JTextField txtTotal;
+    private javax.swing.JTextField txtTotal1;
     // End of variables declaration//GEN-END:variables
 
     private boolean erroresBusqueda(){
@@ -327,24 +639,24 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         String mensaje = "";
         if(txtIdCorrecto.getText().isEmpty()){
             errores++;
-            mensaje += "> Debe ingresar el ID Correcto en el campo especificado";
+            mensaje += "> Debe ingresar el ID Correcto en el campo especificado \n";
         }
         if(txtIdIncorrecto.getText().isEmpty()){
             errores++;
-            mensaje += "> Debe ingresar el ID Incorrecto en el campo especificado";
+            mensaje += "> Debe ingresar el ID Incorrecto en el campo especificado \n";
         }
         
         if(!txtIdCorrecto.getText().isEmpty() && !txtIdIncorrecto.getText().isEmpty()){
-            User userCorrecto = uc.buscarPorId(txtIdCorrecto);
-            User userIncorrecto = uc.buscarPorId(txtIdIncorrecto);
+            User userCorrecto = uc.buscarPorId(txtIdCorrecto.getText());
+            User userIncorrecto = uc.buscarPorId(txtIdIncorrecto.getText());
             
             if(userCorrecto == null){
                 errores++;
-                mensaje += "> El id "+txtIdCorrecto.getText()+" no existe en la base de datos.";
+                mensaje += "> El id "+txtIdCorrecto.getText()+" no existe en la base de datos. \n";
             }
             if(userIncorrecto == null){
                 errores++;
-                mensaje += "> El id "+txtIdIncorrecto.getText()+" no existe en la base de datos.";
+                mensaje += "> El id "+txtIdIncorrecto.getText()+" no existe en la base de datos. \n";
             }
         }
         if(errores > 0){
@@ -357,5 +669,125 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
     private void inicializar(){
         
         uc = new UserControlador();
+        ec = new EventControlador();
+    }
+    
+    private int paginaActual = 1;
+    private int totalPaginas = 0;
+    private int tamanioPagina = 0;
+
+    private void buscar(String idCorrecto, List<EventLog> listado,JXTable tblEvents) {
+ 
+        tamanioPagina = Integer.parseInt(cboTamanio.getSelectedItem().toString());
+
+        listado.clear();
+        List<EventLog> lista = this.listar(idCorrecto, paginaActual, tamanioPagina);
+        System.out.println("LISTA: " + lista.size());
+        listadoIdC.addAll(lista);
+
+        tblEvents.packAll();
+    }
+    
+    private List<EventLog> listar(String IdCorrecto, int pagina, int tamanio) {
+        int total;
+
+        total = ec.contarEventosXID(IdCorrecto);
+        if (total % tamanio == 0) {
+            totalPaginas = total / tamanio;
+        } else {
+            totalPaginas = (total / tamanio) + 1;
+        }
+
+        if (totalPaginas == 0) {
+            totalPaginas = 1;
+        }
+
+        return ec.buscarXEventosXPagina(IdCorrecto, (pagina - 1) * tamanio, tamanio);
+        
+
+    }
+     private void siguiente() {
+        paginaActual++;
+        if(!txtIdCorrecto.getText().isEmpty()){
+            buscar(txtIdCorrecto.getText(),listadoIdC,tblEventsIdC);
+        } 
+        this.actualizarControlesNavegacion();
+    }
+
+    private void ultimo() {
+        paginaActual = totalPaginas;
+        if(!txtIdCorrecto.getText().isEmpty()){
+            buscar(txtIdCorrecto.getText(),listadoIdC,tblEventsIdC);
+        }
+        this.actualizarControlesNavegacion();
+    }
+
+    private void primero() {
+        paginaActual = 1;
+        if(!txtIdCorrecto.getText().isEmpty()){
+            buscar(txtIdCorrecto.getText(),listadoIdC,tblEventsIdC);
+        }
+        this.actualizarControlesNavegacion();
+    }
+
+    private void anterior() {
+        paginaActual--;
+        if(!txtIdCorrecto.getText().isEmpty()){
+            buscar(txtIdCorrecto.getText(),listadoIdC,tblEventsIdC);
+        }
+        this.actualizarControlesNavegacion();
+    }
+
+    private void seleccionPagina() {
+        paginaActual = (int) spPagina.getValue();
+        if(!txtIdCorrecto.getText().isEmpty()){
+            buscar(txtIdCorrecto.getText(),listadoIdC,tblEventsIdC);
+        }
+        this.actualizarControlesNavegacion();
+    }
+
+    private void actualizarControlesNavegacion() {
+        spPagina.setValue(paginaActual);
+        txtTotal.setText(totalPaginas + "");
+
+        SpinnerNumberModel modeloSP = (SpinnerNumberModel) spPagina.getModel();
+        Comparable<Integer> maximo = totalPaginas;
+        modeloSP.setMaximum(maximo);
+
+        this.btnSiguiente.setEnabled(paginaActual != totalPaginas);
+        this.btnUltimo.setEnabled(paginaActual != totalPaginas);
+
+        this.btnAnterior.setEnabled(paginaActual != 1);
+        this.btnPrimero.setEnabled(paginaActual != 1);
+    }
+    
+    private void bindeoSalvaje() {
+        listadoIdC = new ArrayList<>();
+        listadoIdC = ObservableCollections.observableList(listadoIdC);
+//
+        listadoIdI = new ArrayList<>();
+        listadoIdI = ObservableCollections.observableList(listadoIdI);
+        
+        String[] columnasIntegrantes = {"Fecha y Hora", "Equipo"};
+
+        MTEventLog mtC = new MTEventLog(listadoIdC);
+        MTEventLog mtI = new MTEventLog(listadoIdI);
+        
+        tblEventsIdC.setModel(mtC);
+        tblEventsIdI.setModel(mtI);
+        
+        actualizarTabla();
+    }
+    
+    private void actualizarTabla() {
+        listadoIdC.clear();
+        listadoIdI.clear();
+        
+//        empleadoSeleccionado = null;
+//        FormularioUtil.limpiarComponente(txtEmpleado);
+        paginaActual = 1;
+//        buscar();
+        actualizarControlesNavegacion();
+//        tblTabla.packAll();
     }
 }

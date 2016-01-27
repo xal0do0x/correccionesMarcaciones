@@ -9,7 +9,7 @@ import dao.DAOBIOSTAR;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import modelo.User;
+import entidades.User;
 
 /**
  *
@@ -22,7 +22,7 @@ public class UserControlador extends Controlador<User> {
     
     public User buscarPorId(String dni){
         int dniT = Integer.parseInt(dni);
-        String jpql = "SELECT u FROM User u WHERE CAST(u.sUserID AS INTEGER) = id ";
+        String jpql = "SELECT u FROM User u WHERE CAST(u.sUserID AS INTEGER) = :id ";
         Map<String, Object> mapa = new HashMap();
         mapa.put("id", dniT);
         
