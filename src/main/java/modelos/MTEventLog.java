@@ -12,6 +12,7 @@ import entidades.Reader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  *
@@ -32,7 +33,8 @@ public class MTEventLog extends ModeloTabla<EventLog>{
         switch(columnIndex){
             case 0:
                 Long l = (long) evento.getnDateTime();
-                return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date(l*1000));
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                return formato.format(new Date((l*1000)+18000000));
             case 1:
                 Reader dispositivo = rc.buscarReaderXID(evento.getnReaderIdn()).get(0);
                 return dispositivo.getSName();

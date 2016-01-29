@@ -472,6 +472,7 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         pnlBtn.setLayout(new java.awt.GridBagLayout());
 
         btnCruce.setText("Hacer cruce");
+        btnCruce.setEnabled(false);
         btnCruce.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCruceActionPerformed(evt);
@@ -496,8 +497,8 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         }
 
         /**
-         * eventosIdC -> Eventos de asistencia del ID Correcto.
-         * eventosIdI -> Eventos de asistencia del ID Incorrecto.
+         * eventosIdC -> Cantidad de eventos de asistencia del ID Correcto.
+         * eventosIdI -> Cantidad de eventos de asistencia del ID Incorrecto.
          * */
         int eventosIdC = ec.contarEventosXID(txtIdCorrecto.getText());
         int eventosIdI = ec.contarEventosXID(txtIdIncorrecto.getText());
@@ -511,7 +512,7 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         //Cantidades a mostrar
         txtNumEventIdC.setText(eventosIdC+"");
         txtNumEventIdI.setText(eventosIdI+"");
-       
+        btnCruce.setEnabled(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtNumEventIdCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumEventIdCActionPerformed
@@ -600,7 +601,12 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
 
     private void btnCruceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCruceActionPerformed
         // TODO add your handling code here:
-        
+        boolean resultado = ec.cruceEventos(txtIdCorrecto.getText(), txtIdIncorrecto.getText());
+        if(resultado){
+            JOptionPane.showMessageDialog(this, "Se realizo el cruce correctamente.");
+        }else{
+            JOptionPane.showMessageDialog(this, "No se realizo el cruce correctamente.");
+        }
     }//GEN-LAST:event_btnCruceActionPerformed
 
 

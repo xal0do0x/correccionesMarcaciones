@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import entidades.EventLog;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -50,5 +52,25 @@ public class EventControlador extends Controlador<EventLog>{
         mapa.put("id", dniT);
         
         return this.getDao().contar(jpql, mapa);
+    }
+    
+    public boolean cruceEventos(String idC, String idI){
+        int dniC = Integer.parseInt(idC);
+        int dniI = Integer.parseInt(idI);
+        String jpql = "UPDATE EventLog e SET e.nUserID = :dniC WHERE e.nUserID = :dniI "
+                + " AND e.nEventIdn IN ('41', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '55')";       
+        try {
+            EntityManager em = this.getDao().getEntityManager();
+            em.getTransaction().begin();
+            Query query = em.createQuery(jpql);
+            query.setParameter("dniC", dniC);
+            query.setParameter("dniI", dniI);
+            query.executeUpdate();
+            em.getTransaction().commit();
+            em.clear();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

@@ -2611,6 +2611,7 @@
         <Component class="javax.swing.JToggleButton" name="btnCruce">
           <Properties>
             <Property name="text" type="java.lang.String" value="Hacer cruce"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCruceActionPerformed"/>
