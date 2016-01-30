@@ -89,7 +89,7 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         cboTamanio1 = new javax.swing.JComboBox();
         btnMostrarEventsIdI = new javax.swing.JButton();
         pnlBtn = new javax.swing.JPanel();
-        btnCruce = new javax.swing.JToggleButton();
+        btnHacerCruce = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Corrección de Marcaciones - Individual");
@@ -471,14 +471,17 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
 
         pnlBtn.setLayout(new java.awt.GridBagLayout());
 
-        btnCruce.setText("Hacer cruce");
-        btnCruce.setEnabled(false);
-        btnCruce.addActionListener(new java.awt.event.ActionListener() {
+        btnHacerCruce.setText("Hacer cruce");
+        btnHacerCruce.setEnabled(false);
+        btnHacerCruce.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCruceActionPerformed(evt);
+                btnHacerCruceActionPerformed(evt);
             }
         });
-        pnlBtn.add(btnCruce, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        pnlBtn.add(btnHacerCruce, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -512,7 +515,7 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         //Cantidades a mostrar
         txtNumEventIdC.setText(eventosIdC+"");
         txtNumEventIdI.setText(eventosIdI+"");
-        btnCruce.setEnabled(true);
+        btnHacerCruce.setEnabled(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtNumEventIdCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumEventIdCActionPerformed
@@ -599,22 +602,29 @@ public class correccionIndividual extends javax.swing.JInternalFrame {
         actualizarControlesNavegacion1();
     }//GEN-LAST:event_btnMostrarEventsIdIActionPerformed
 
-    private void btnCruceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCruceActionPerformed
+    private void btnHacerCruceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHacerCruceActionPerformed
         // TODO add your handling code here:
         boolean resultado = ec.cruceEventos(txtIdCorrecto.getText(), txtIdIncorrecto.getText());
-        if(resultado){
+        if(resultado){                 
+            uc.eliminar(uc.buscarPorId(txtIdIncorrecto.getText()));
             JOptionPane.showMessageDialog(this, "Se realizo el cruce correctamente.");
+            JOptionPane.showMessageDialog(this, "Se elimino al usuario con dni incorrecto del Biostar: "+txtIdIncorrecto.getText());
+            FormularioUtil.limpiarComponente(this.pnlMarcaciones);
+            FormularioUtil.limpiarComponente(this.pnlDatos);
+            FormularioUtil.limpiarComponente(this.pnlNavegacion);
+            FormularioUtil.limpiarComponente(this.pnlNavegacion1);
+            btnHacerCruce.setEnabled(false);
         }else{
             JOptionPane.showMessageDialog(this, "No se realizo el cruce correctamente.");
         }
-    }//GEN-LAST:event_btnCruceActionPerformed
+    }//GEN-LAST:event_btnHacerCruceActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnAnterior1;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JToggleButton btnCruce;
+    private javax.swing.JButton btnHacerCruce;
     private javax.swing.JButton btnMostrarEventsIdC;
     private javax.swing.JButton btnMostrarEventsIdI;
     private javax.swing.JButton btnPrimero;
